@@ -1,0 +1,38 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "2022.0.1",
+	"FriendlyName": "MediaPipe BVH",
+	"Description": "MediaPipe BVH Toolkit",
+	"Category": "Animation",
+	"CreatedBy": "AndersXiao",
+	"CreatedByURL": "https://github.com/endink",
+	"DocsURL": "https://github.com/endink/Mediapipe4u-plugin",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"EngineVersion": "5.5.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "MediaPipeBVH",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64",
+				"Linux",
+				"Android"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "MediaPipe4U",
+			"Enabled": true
+		},
+		{
+			"Name": "MediaPipe4UMotion",
+			"Enabled": true
+		}
+	]
+}

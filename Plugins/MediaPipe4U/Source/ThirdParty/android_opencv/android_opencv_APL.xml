@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- init section is always evaluated once per architecture -->
+    <init>
+    </init>
+
+    <!-- optional files or directories to copy to Intermediate/Android/APK -->
+    <resourceCopies>
+        <copyFile src="$S(PluginDir)/lib/Android/$S(Architecture)/libopencv_world.so"
+                  dst="$S(BuildDir)/libs/$S(Architecture)/libopencv_world.so" />
+    </resourceCopies>
+
+    <soLoadLibrary>
+        <log text="Load mediapipe4u opencv library."/>
+        <loadLibrary name="opencv_world" failmsg="opencv not loaded and required!" />
+    </soLoadLibrary>
+</root>

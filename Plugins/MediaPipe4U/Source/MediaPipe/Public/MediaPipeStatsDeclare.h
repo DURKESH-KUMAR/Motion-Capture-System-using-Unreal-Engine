@@ -1,0 +1,18 @@
+﻿// Copyright (c) 2022 Anders Xiao. All rights reserved.
+// https://github.com/endink
+
+#pragma once
+#include "Stats/Stats.h"
+
+
+DECLARE_STATS_GROUP(TEXT("MediaPipe4U Stats"),STATGROUP_M4U, STATCAT_MediaPipe4U); 
+
+
+DECLARE_DWORD_ACCUMULATOR_STAT_EXTERN(TEXT("Image Frame Width"), STAT_FrameWidth, STATGROUP_M4U, MEDIAPIPE_API);
+DECLARE_DWORD_ACCUMULATOR_STAT_EXTERN(TEXT("Image Frame Height"), STAT_FrameHeight, STATGROUP_M4U, MEDIAPIPE_API);
+
+DECLARE_DWORD_ACCUMULATOR_STAT_EXTERN(TEXT("Frame Pool Idle"), STAT_FramePoolIdle, STATGROUP_M4U, MEDIAPIPE_API);
+DECLARE_DWORD_ACCUMULATOR_STAT_EXTERN(TEXT("Frame Pool Busy"), STAT_FramePoolBusy, STATGROUP_M4U, MEDIAPIPE_API);
+
+
+

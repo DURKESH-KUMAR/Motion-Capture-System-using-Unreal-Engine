@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- init section is always evaluated once per architecture -->
+    <init>
+        <log text="MediaPipe4U Android initializing." />
+    </init>
+
+    <androidManifestUpdates>
+        <addPermission android:name="android.permission.CAMERA" />
+        <addFeature android:name="android.hardware.camera" />
+        <addFeature android:name="android.hardware.camera.autofocus" />
+    </androidManifestUpdates>
+
+    <prebuildCopies>
+        <copyDir src="$S(PluginDir)/Java" dst="$S(BuildDir)/src/" />
+    </prebuildCopies>
+    
+    <proguardAdditions>
+        <insert>
+        -keep class com.mediapipe4u.**
+        {
+          public *;
+        }
+        </insert>
+    </proguardAdditions>
+
+    <!--  Anders Xiao love kotlin : ) -->
+    <buildscriptGradleAdditions>
+        <insert>
+repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+}
+dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
+    // if we want download something by gradle , just open it
+    //classpath "de.undercouch:gradle-download-task:5.5.0"
+}
+        </insert>
+    </buildscriptGradleAdditions>
+
+    <!--  Anders Xiao love kotlin : ) -->
+    <buildGradleAdditions> 
+        <insert>
+            apply plugin: 'kotlin-android'
+            
+            android {
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                }
+    
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+            }
+            dependencies {
+                implementation "androidx.core:core-ktx:1.8.0"
+                implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21"
+                //implementation "com.google.guava:guava:20.0"
+                //implementation "androidx.concurrent:concurrent-futures:1.1.0"
+				implementation "com.google.flogger:flogger:0.7.4"
+				implementation "com.google.flogger:flogger-system-backend:0.7.4"
+				
+				def camerax_version = "1.2.0"
+                implementation "androidx.camera:camera-core:$camerax_version"
+                implementation "androidx.camera:camera-camera2:$camerax_version"
+                implementation "androidx.camera:camera-lifecycle:$camerax_version"
+            }
+        </insert>
+    </buildGradleAdditions>
+
+    <!-- optional additions to the GameActivity imports in GameActivity.java -->
+    <gameActivityImportAdditions>
+        <insert>
+import android.media.Image;
+import android.media.ImageReader;
+import android.util.Size;
+import com.mediapipe4u.MediaPipeUtils;
+        </insert>
+    </gameActivityImportAdditions>
+	<gameActivityClassAdditions>
+		<insert>
+			private MediaPipeUtils mediaPipeUtils = null;
+
+			public MediaPipeUtils getMediaPipeUtils()
+			{
+			    if(mediaPipeUtils == null) {
+			        synchronized (this) {
+			            if(mediaPipeUtils == null) {
+			                mediaPipeUtils = new MediaPipeUtils();
+			            }
+			        }
+			    }
+			    return mediaPipeUtils;
+			}
+		</insert>
+	</gameActivityClassAdditions>
+    <gameActivityOnCreateAdditions>
+        <insert>
+MediaPipeUtils.get().initializeMediaPipe4U(this, GetContainerFrameLayout());
+		</insert>
+    </gameActivityOnCreateAdditions>
+    <gameActivityOnStartAdditions>
+        <insert>
+MediaPipeUtils.get().onStart();
+        </insert>
+    </gameActivityOnStartAdditions>
+    <gameActivityOnStopAdditions>
+        <insert>
+MediaPipeUtils.get().onStop();
+        </insert>
+    </gameActivityOnStopAdditions>
+    <gameActivityOnResumeAdditions>
+        <insert>
+MediaPipeUtils.get().onResume();
+        </insert>
+    </gameActivityOnResumeAdditions>
+    <gameActivityOnPauseAdditions>
+        <insert>
+MediaPipeUtils.get().onPause();
+        </insert>
+    </gameActivityOnPauseAdditions>
+    <!-- optional additions to GameActivity onCreate in GameActivity.java -->
+    <gameActivityOnCreateAdditions>
+        <insert>
+        </insert>
+    </gameActivityOnCreateAdditions>
+
+</root>
